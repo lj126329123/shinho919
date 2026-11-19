@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shinho 调味品 · Condiments &amp; Sauces</title>
+<style>
+  :root{
+    --cream:#FBF6EE;
+    --cream-deep:#F3EBDD;
+    --soy:#6B4A2F;
+    --soy-deep:#4A3320;
+    --soy-soft:#E8DFD2;
+    --amber:#C98A3B;
+    --amber-soft:#F3E3CC;
+    --ink:#35302A;
+    --ink-soft:#7E756B;
+    --card:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Noto Sans SC','Source Han Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .serif{font-family:'Noto Serif SC','Source Han Serif SC','Songti SC','STSong','SimSun',serif;}
+  .en{font-family:Georgia,'Times New Roman',serif;font-style:italic;color:var(--ink-soft);}
+
+  /* ===== 顶部导航 ===== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,246,238,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--cream-deep);
+  }
+  .nav-inner{
+    max-width:1080px;margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand-mark{
+    min-width:38px;height:38px;padding:0 9px;border-radius:999px;
+    background:var(--soy);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:700;letter-spacing:1px;
+  }
+  .brand-name{font-size:17px;letter-spacing:.5px;}
+  .brand-name small{display:block;font-size:11px;color:var(--ink-soft);letter-spacing:2px;font-style:italic;}
+  nav{display:flex;gap:26px;font-size:14.5px;}
+  nav a{color:var(--ink);text-decoration:none;padding-bottom:2px;border-bottom:2px solid transparent;transition:.2s;}
+  nav a:hover{border-color:var(--amber);color:var(--soy-deep);}
+
+  /* ===== 首屏 ===== */
+  .hero{
+    max-width:1080px;margin:0 auto;padding:64px 24px 40px;
+    display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;
+  }
+  .hero h1{font-size:clamp(28px,4.6vw,44px);line-height:1.28;letter-spacing:1px;font-weight:600;}
+  .hero h1 .hl{color:var(--amber);}
+  .hero .en-line{font-size:15px;margin:14px 0 26px;letter-spacing:.4px;}
+  .hero p.lead{font-size:15.5px;color:var(--ink-soft);margin-bottom:30px;max-width:30em;}
+  .btn-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;padding:13px 30px;border-radius:999px;
+    font-size:15px;text-decoration:none;cursor:pointer;border:none;
+    transition:transform .15s,box-shadow .15s;
+  }
+  .btn-main{background:var(--soy-deep);color:#fff;}
+  .btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(74,51,32,.25);}
+  .btn-sub{background:transparent;color:var(--soy-deep);border:1.5px solid var(--soy);}
+  .btn-sub:hover{background:var(--soy-soft);}
+  .hero-art{position:relative;height:300px;}
+  .blob{position:absolute;border-radius:50%;}
+  .blob-1{width:230px;height:230px;background:var(--soy-soft);top:8px;left:30px;}
+  .blob-2{width:120px;height:120px;background:var(--amber-soft);bottom:14px;right:26px;}
+  .blob-3{width:64px;height:64px;background:var(--amber);opacity:.85;top:40px;right:70px;}
+  .blob-4{width:34px;height:34px;background:var(--soy);bottom:70px;left:8px;opacity:.7;}
+  .hero-tag{
+    position:absolute;top:112px;left:96px;background:#fff;border-radius:14px;
+    padding:12px 18px;font-size:13.5px;box-shadow:0 10px 26px rgba(53,48,42,.12);
+    line-height:1.45;
+  }
+  .hero-tag b{color:var(--soy-deep);}
+  .hero-tag small{color:var(--ink-soft);font-style:italic;}
+
+  /* ===== 通用小节 ===== */
+  section{max-width:1080px;margin:0 auto;padding:58px 24px;}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;}
+  .sec-head h2{font-size:26px;letter-spacing:1px;font-weight:600;}
+  .sec-head .en{font-size:14px;}
+  .sec-line{width:56px;height:3px;background:var(--amber);border-radius:2px;margin-bottom:26px;}
+
+  /* ===== 产品卡 ===== */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:22px;}
+  .card{
+    background:var(--card);border-radius:18px;overflow:hidden;
+    box-shadow:0 6px 18px rgba(53,48,42,.07);
+    transition:transform .18s,box-shadow .18s;
+    display:flex;flex-direction:column;
+  }
+  .card:hover{transform:translateY(-5px);box-shadow:0 14px 30px rgba(53,48,42,.13);}
+  .card-img{
+    height:168px;display:flex;align-items:center;justify-content:center;
+    font-size:40px;color:#fff;position:relative;
+  }
+  .card-img small{
+    position:absolute;bottom:8px;right:10px;color:rgba(255,255,255,.85);
+    font-size:11px;font-style:italic;
+  }
+  .img-a{background:linear-gradient(135deg,var(--soy) 0%,var(--soy-deep) 100%);}
+  .img-b{background:linear-gradient(135deg,var(--amber) 0%,#A96F2C 100%);}
+  .img-c{background:linear-gradient(135deg,#A98F70 0%,var(--soy-deep) 100%);}
+  .img-d{background:linear-gradient(135deg,#E3C9A0 0%,var(--amber) 100%);}
+  .badge{
+    position:absolute;top:12px;left:12px;background:#fff;color:var(--soy-deep);
+    font-size:12px;padding:4px 12px;border-radius:999px;font-weight:600;
+    box-shadow:0 3px 8px rgba(0,0,0,.12);
+  }
+  .card-body{padding:18px 18px 20px;flex:1;display:flex;flex-direction:column;}
+  .card-body h3{font-size:17px;margin-bottom:4px;letter-spacing:.5px;}
+  .card-body .en{font-size:12.5px;margin-bottom:10px;}
+  .card-body p{font-size:13.5px;color:var(--ink-soft);flex:1;}
+  .price-row{margin-top:14px;display:flex;justify-content:space-between;align-items:center;}
+  .price{color:var(--soy-deep);font-weight:700;font-size:16px;}
+  .price small{font-size:11px;color:var(--ink-soft);font-weight:400;font-style:italic;}
+
+  /* ===== 关于 ===== */
+  .about{
+    background:var(--cream-deep);border-radius:24px;padding:42px 38px;
+    display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center;
+  }
+  .about h3{font-size:20px;margin-bottom:12px;}
+  .about p{font-size:14.5px;color:var(--ink-soft);margin-bottom:10px;}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .stat{
+    background:#fff;border-radius:16px;padding:18px 12px;text-align:center;
+    box-shadow:0 4px 12px rgba(53,48,42,.06);
+  }
+  .stat b{display:block;font-size:22px;color:var(--soy-deep);font-weight:700;}
+  .stat span{font-size:12px;color:var(--ink-soft);}
+  .stat em{display:block;font-size:10.5px;font-style:italic;color:var(--amber);margin-top:2px;}
+
+  /* ===== 预约 ===== */
+  .book{
+    background:#fff;border-radius:24px;padding:42px 38px;
+    box-shadow:0 8px 22px rgba(53,48,42,.08);
+  }
+  .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:22px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field.full{grid-column:1/-1;}
+  .field label{font-size:13.5px;color:var(--ink);}
+  .field label i{color:var(--amber);font-style:normal;}
+  .field input,.field textarea,.field select{
+    border:1.5px solid var(--cream-deep);border-radius:12px;
+    padding:11px 14px;font-size:14.5px;background:var(--cream);
+    outline:none;transition:border-color .2s;font-family:inherit;color:var(--ink);
+  }
+  .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--soy);}
+  .form-note{
+    grid-column:1/-1;font-size:12.5px;color:var(--ink-soft);
+    background:var(--amber-soft);border-radius:10px;padding:10px 14px;
+  }
+  .toast{
+    display:none;grid-column:1/-1;
+    background:var(--soy-soft);color:var(--soy-deep);
+    border-radius:12px;padding:12px 16px;font-size:14px;text-align:center;
+  }
+
+  /* ===== 页脚 ===== */
+  footer{
+    border-top:1px solid var(--cream-deep);background:var(--cream);
+    padding:34px 24px;text-align:center;
+  }
+  footer .serif{font-size:16px;margin-bottom:6px;}
+  footer p{font-size:12.5px;color:var(--ink-soft);}
+  .trial-note{
+    display:inline-block;margin-top:12px;
+    border:1px dashed var(--amber);color:var(--amber);
+    font-size:12px;padding:5px 16px;border-radius:999px;
+  }
+
+  /* ===== 移动端 ===== */
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr;padding-top:40px;}
+    .hero-art{height:230px;}
+    .about{grid-template-columns:1fr;padding:30px 24px;}
+    .book-grid{grid-template-columns:1fr;}
+    nav{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark">SH</div>
+      <div class="brand-name serif">Shinho 调味品<small>Condiments &amp; Sauces</small></div>
+    </div>
+    <nav>
+      <a href="#products">产品精选</a>
+      <a href="#about">关于我们</a>
+      <a href="#booking">预约看货</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== 首屏 ===== -->
+<div class="hero">
+  <div>
+    <h1 class="serif">把<span class="hl">好滋味</span><br>调进一日三餐<br>Season every meal.</h1>
+    <div class="en-line en">Shinho Condiments · Brewing quality into every kitchen</div>
+    <p class="lead">酱油、食醋、料酒到复合调味汁，品类齐全、供货稳定。家庭装与餐饮装皆可供货，支持批发零购，欢迎预约看货。</p>
+    <div class="btn-row">
+      <a href="#products" class="btn btn-main">查看产品 · View</a>
+      <a href="#booking" class="btn btn-sub">预约看货 · Book a visit</a>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+    <div class="hero-tag">
+      <b>招牌主推</b> · 零添加酿造酱油<br>
+      <small>Zero-additive brewed soy sauce</small>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 产品 ===== -->
+<section id="products">
+  <div class="sec-head"><h2 class="serif">产品精选</h2><span class="en">Featured Picks</span></div>
+  <div class="sec-line"></div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-img img-a"><span>🍶</span><span class="badge">招牌主推</span><small>Placeholder photo</small></div>
+      <div class="card-body">
+        <h3 class="serif">酿造酱油</h3><div class="en">Brewed Soy Sauce</div>
+        <p>零添加、高盐稀态酿造，鲜香自然。500mL 家用装到 5L 餐饮装齐全，走量主力。</p>
+        <div class="price-row"><span class="price">¥ 1x–6x <small>placeholder</small></span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img img-b"><span>🫙</span><small>Placeholder photo</small></div>
+      <div class="card-body">
+        <h3 class="serif">复合调味</h3><div class="en">Blended Sauces</div>
+        <p>蚝油、红烧汁、凉拌汁、调味酱，一汁成菜，家用方便、餐饮出餐快。</p>
+        <div class="price-row"><span class="price">¥ 1x–4x <small>placeholder</small></span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img img-c"><span>🥢</span><small>Placeholder photo</small></div>
+      <div class="card-body">
+        <h3 class="serif">食醋 · 料酒</h3><div class="en">Vinegar &amp; Cooking Wine</div>
+        <p>酿造食醋与葱姜料酒，去腥解腻的厨房常备基础款，复购稳定。</p>
+        <div class="price-row"><span class="price">¥ 1x–3x <small>placeholder</small></span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img img-d"><span>🌶</span><small>Placeholder photo</small></div>
+      <div class="card-body">
+        <h3 class="serif">汤底蘸料</h3><div class="en">Soup Base &amp; Dips</div>
+        <p>火锅底料、蘸酱辣椒类，秋冬旺季品类，客单价高、组合出货快。</p>
+        <div class="price-row"><span class="price">¥ 1x–5x <small>placeholder</small></span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== 关于 ===== -->
+<section id="about">
+  <div class="sec-head"><h2 class="serif">关于我们</h2><span class="en">About Us</span></div>
+  <div class="sec-line"></div>
+  <div class="about">
+    <div>
+      <h3 class="serif">一间做调味品的铺子</h3>
+      <p>专注酱油、食醋、料酒与复合调味品类，货源稳定、批次新鲜。家庭小包装、餐饮大包装均可供货，支持批发与零购。</p>
+      <p class="en" style="font-size:13px;">A condiment shop with steady supply and fresh batches — from family packs to catering sizes, wholesale and retail are both welcome.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>100+</b><span>在售 SKU</span><em>Active SKUs</em></div>
+      <div class="stat"><b>4</b><span>主力品类</span><em>Core lines</em></div>
+      <div class="stat"><b>2</b><span>批零皆可</span><em>Wholesale &amp; retail</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 预约 ===== -->
+<section id="booking">
+  <div class="sec-head"><h2 class="serif">预约看货</h2><span class="en">Book a Visit</span></div>
+  <div class="sec-line"></div>
+  <div class="book">
+    <p style="font-size:14px;color:var(--ink-soft);">留下联系方式和看货时间，我们会提前备好您想看的品类与规格。<br><span class="en" style="font-size:12px;">Leave your contact and preferred time — we'll prepare the stock lines before you arrive.</span></p>
+    <form class="book-grid" id="bookForm">
+      <div class="field"><label>姓名 <i>*</i></label><input type="text" name="name" placeholder="您的称呼" required></div>
+      <div class="field"><label>手机号 <i>*</i></label><input type="tel" name="phone" pattern="1[3-9][0-9]{9}" placeholder="11 位手机号" required></div>
+      <div class="field"><label>看货时间</label><input type="date" name="date"></div>
+      <div class="field"><label>想看的品类</label>
+        <select name="line">
+          <option>酿造酱油</option><option>复合调味</option><option>食醋 · 料酒</option><option>汤底蘸料</option><option>都看看</option>
+        </select>
+      </div>
+      <div class="field full"><label>备注</label><textarea name="note" rows="3" placeholder="起订量、配送城市、餐饮装或家用装等"></textarea></div>
+      <div class="form-note">※ 试验版说明：本表单暂未接入后端，提交不会真正保存。<br><span class="en" style="font-size:11px;">Trial build — this form is a frontend demo only.</span></div>
+      <div class="toast" id="toast">✓ 收到！试验版暂未保存数据——正式上线后会接入预约后台。</div>
+      <div class="field full"><button type="submit" class="btn btn-main" style="width:100%;">提交预约 · Submit</button></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="serif">Shinho 调味品 · Condiments &amp; Sauces</div>
+  <p>本站部署于 shinho.pi · 仅 Pi 浏览器内可访问<br><span class="en" style="font-size:11.5px;">Hosted at shinho.pi — reachable inside Pi Browser</span></p>
+  <span class="trial-note">待替换：产品图 / 价格 / 联系方式 / 品牌名</span>
+</footer>
+
+<script>
+  document.getElementById('bookForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('toast').style.display='block';
+    this.reset();
+  });
+</script>
+</body>
+</html>
